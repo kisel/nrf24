@@ -12,8 +12,8 @@
  * Author: Anton Kiselev(anton.kisel@gmail.com)
 */
 
-#ifndef NRF24L01_DEBUG_H_
-#define NRF24L01_DEBUG_H_
+#ifndef NRF24_DEBUG_H_
+#define NRF24_DEBUG_H_
 
 #include "nrf24.h"
 
@@ -25,7 +25,7 @@ void nrf24_print_hex(uint8_t val);
 
 /* helper function. prints 0-terminated string */
 void nrf24_print_cstr(char *str);
-	
+
 /* prints "#{name}: #{payload.to_hex}" */
 void nrf24_print_named_hex_val(char *name, uint8_t *payload, unsigned sz);
 
@@ -42,3 +42,4 @@ void nrf24_print_fifo_status();
 void nrf24_print_register(uint8_t reg, char *name, unsigned sz);
 
 #endif
+
