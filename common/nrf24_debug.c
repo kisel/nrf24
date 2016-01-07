@@ -33,7 +33,7 @@ void nrf24_print_named_hex_val(char *name, uint8_t *payload, unsigned sz)
 
 void nrf24_print_register(uint8_t reg, char *name, unsigned sz)
 {
-  char val[32];
+  uint8_t val[32];
   nrf24_read_reg_mb(reg, val, sz);
   nrf24_print_named_hex_val(name, val, sz);
 }

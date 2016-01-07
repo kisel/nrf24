@@ -7,15 +7,7 @@
  * - minimal dependencies, platform portability
  * - small compiled size
  *
- * DEPENDENCIES: SPI, GPIO, define following statements or see examples
-#define NRF24_HW_SPI_WRITE(d) SPIRDAT = (d);
-#define NRF24_HW_SPI_READ() SPIRDAT
-#define NRF24_HW_SPI_BUSY (!(SPIRSTAT & SPI_EMPTY_FLAG))
-#define NRF24_HW_CSN_LOW() RFCSN = 0U
-#define NRF24_HW_CSN_HIGH() RFCSN = 1U
-#define NRF24_HW_CE_LOW() RFCE = 0U
-#define NRF24_HW_CE_HIGH() RFCE = 1U
-#define NRF24_HW_CE_PULSE() do{ NRF24_HW_CE_HIGH(); delay_us(10); NRF24_HW_CE_LOW();} while(0)
+ * DEPENDENCIES: you need to implement functions from nrf24_hw.h
  *
  *
  * Author: Anton Kiselev(anton.kisel@gmail.com)
@@ -36,8 +28,14 @@
 #include <stdint.h>
 #include "nrf24_defines.h"
 
-/* read&write single byte via SPI */
+/* send & receive 1 byte via SPI */
 uint8_t nrf24_spi_rw(uint8_t value);
+
+/* NRF24L01 radio GPIO pins */
+void nrf24_ce_low();
+void nrf24_ce_high();
+void nrf24_csn_low();
+void nrf24_csn_high();
 
 /* read 8bit nrf24l01 register */
 uint8_t nrf24_read_reg(uint8_t reg);
@@ -56,7 +54,7 @@ void nrf24_reg_setbit(uint8_t reg, uint8_t mask_to_set, uint8_t mask_to_clear);
 
 /* initalize CE, CSN GPIO properly.
 required if there are multiple SPI devices on the same bus */
-#define nrf24_gpio_reset() do { NRF24_HW_CE_LOW();	NRF24_HW_CSN_HIGH(); } while(0)
+#define nrf24_gpio_reset() do { nrf24_ce_low();	nrf24_csn_high(); } while(0)
 
 /* got to standby1 mode from power down or rx modes */
 void nrf24_standby1();
@@ -108,7 +106,7 @@ FEATURES, DYNAMIC PAYLOAD needs to be enabled
 void nrf24_default_init();
 
 /* reset interrupt bits in status */
-#define nrf24_status_reset_flags() \
+#define nrf24_clear_interrupts() \
   nrf24_reg_setbit(STATUS, (1<<MAX_RT)|(1<<TX_DS)|(1<<RX_DR), 0);
 
 // NRF24L01 Timings

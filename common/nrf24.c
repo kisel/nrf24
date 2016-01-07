@@ -142,14 +142,12 @@ void nrf24_standby1()
    */
 void nrf24_default_init()
 {
-  nrf24_gpio_reset();
-  nrf24_command(NOP); /* to ensure SPI works correctly */
-
   /* init in case device is in dirty state */
   nrf24_command(FLUSH_TX);
   nrf24_command(FLUSH_RX);
   nrf24_write_reg(CONFIG, 0x08);
-  nrf24_write_reg(STATUS, 0x0E);
+  /* reset status to 0x0E and clear interrupts */
+  nrf24_write_reg(STATUS, 0x0E | (1<<MAX_RT)|(1<<TX_DS)|(1<<RX_DR));
 
   /* enable nessessary features*/
   nrf24_write_reg(FEATURE, 0x07); /*  enable all chip FEATUREs */
