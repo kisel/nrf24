@@ -143,6 +143,7 @@ void nrf24_standby1()
 void nrf24_default_init()
 {
   /* init in case device is in dirty state */
+  nrf24_command(NOP);
   nrf24_command(FLUSH_TX);
   nrf24_command(FLUSH_RX);
   nrf24_write_reg(CONFIG, 0x08);
