@@ -3,6 +3,10 @@
 
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* NRF24L01 hardware dependencies
 you need to define these functions inside your project
 and the linker will pick them up.
@@ -26,6 +30,9 @@ implementation can look like:
 */
 void nrf24_ce_pulse();
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

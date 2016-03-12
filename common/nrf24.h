@@ -28,6 +28,10 @@
 #include <stdint.h>
 #include "nrf24_defines.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* send & receive 1 byte via SPI */
 uint8_t nrf24_spi_rw(uint8_t value);
 
@@ -114,4 +118,9 @@ void nrf24_default_init();
 #define NRF24_SETTLING_US 130 /* settling delay for RX/TX */
 #define NRF24_TX_PULSE_US 10 /* 10us CE HIGH pulse to start TX */
 
+#ifdef __cplusplus
+}
+#endif
+
 #endif //NRF24_DEFINED
+

@@ -17,6 +17,10 @@
 
 #include "nrf24.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* you need to define this function(or override it with macro in nrf24_hw.h) */
 void nrf24_putc(char ch);
 
@@ -40,6 +44,10 @@ void nrf24_print_fifo_status();
 
 /* print register contents. prints name as well*/
 void nrf24_print_register(uint8_t reg, char *name, unsigned sz);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 
